@@ -1,4 +1,5 @@
 (function($) {
+	var JQ_VERSION = parseFloat($().version);
 
     function bindFirst($el, eventName, args) {
         args.unshift(eventName);
@@ -24,18 +25,30 @@
         return $(this);
     };
 
-    $.fn.liveFirst = function() {
+	$.fn.delegateFirst = function() {
+		var $el = $(this);
         var args = $.makeArray(arguments);
+        var l = (args[1] || '').split(/\s+/).length;
+		$.fn.delegate.apply($el, args);
+		
+		$el.each(function() {
+			var $el = $(this);
+			var events = $el.data('events').live;
+			events = events.splice(-1 * l, l).concat(events);
+			$el.data('events').live = events;
+			console.log(events);
+		});
+		
+		return $el;
+	};
+
+    $.fn.liveFirst = function() {
         var $el = $(this);
-        var l = args[0].split(/\s+/).length;
+        var args = $.makeArray(arguments);
         args.unshift($el.selector);
 
         // bind live event(s)
-        $.fn.delegate.apply($(document), args);
-
-        // move them to the top
-        var events = $(document).data('events').live;
-        events = events.splice(-1 * l, l).concat(events);
+        $.fn.delegateFirst.apply($(document), args);
 
         return $el;
     };

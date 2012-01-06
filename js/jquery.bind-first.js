@@ -1,29 +1,26 @@
 (function($) {
 	var JQ_VERSION = parseFloat($.fn.jquery);
 	
-	function eventsData($el, key, value) {
-		var data = JQ_VERSION < 1.7 ? $el.data('events') : $._data($el[0]).events;
-		if (!key || !value) {
-			return data;
-		}
-		data[key] = value;
+	function eventsData($el) {
+		return JQ_VERSION < 1.7 ? $el.data('events') : $._data($el[0]).events;
 	}
 	
 	function moveHandlerToTop($el, eventName, isDelegated) {
 		var data = eventsData($el);
 		var events = data[eventName];
 		
-		if (JQ_VERSION < 1.7) {
-			if (isDelegated) {
-				data.live.unshift(data.live.pop());
-			} else {
-				events.unshift(events.pop());
-			}
+		if (JQ_VERSION >= 1.7) {
+			var handler = events.pop();
+			events.splice(isDelegated ? 0 : (events.delegateCount || 0), 0, handler);
+
 			return;
 		}
 
-		var handler = events.pop();
-		events.splice(isDelegated ? 0 : (events.delegateCount || 0), 0, handler);
+		if (isDelegated) {
+			data.live.unshift(data.live.pop());
+		} else {
+			events.unshift(events.pop());
+		}
 	}
 	
 	function moveEventHandlers($elems, eventsString, isDelegate) {

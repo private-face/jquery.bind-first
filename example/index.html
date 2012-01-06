@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="../js/jquery.bind-first.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css" media="screen">
 		.example code {
@@ -25,7 +25,7 @@ $('#bind a')
 		alert('regular bind');
 		return false;
 	})
-	// delegateFirst: binded second, will be runned first
+	// bindFirst: binded second, will be runned first
 	.bindFirst('click.ns2', function() {
 		alert('bindFirst');
 		return false;
@@ -63,7 +63,7 @@ $('#live a')
 		alert('regular live');
 		return false;
 	})
-	// delegateFirst: binded second, will be runned first
+	// liveFirst: binded second, will be runned first
 	.liveFirst('click.ns2', function() {
 		alert('liveFirst');
 		return false;

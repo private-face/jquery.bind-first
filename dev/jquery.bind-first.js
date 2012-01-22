@@ -8,9 +8,9 @@
 	function moveHandlerToTop($el, eventName, isDelegated) {
 		var data = eventsData($el);
 		var events = data[eventName];
-		
+
 		if (!JQ_LT_17) {
-			var handler = events.pop();
+			var handler = isDelegated ? events.splice(events.delegateCount - 1, 1)[0] : events.pop();
 			events.splice(isDelegated ? 0 : (events.delegateCount || 0), 0, handler);
 
 			return;

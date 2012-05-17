@@ -67,5 +67,26 @@
 
 		return this;
 	};
+	
+	if (!JQ_LT_17) {
+		$.fn.onFirst = function(types, selector) {
+			var $el = $(this);
+			var isDelegated = typeof selector === 'string';
+
+			$.fn.on.apply($el, arguments);
+
+			// events map
+			if (typeof types === 'object') {
+				for (type in types)
+					if (types.hasOwnProperty(type)) {
+						moveEventHandlers($el, type, isDelegated);
+					}
+			} else if (typeof types === 'string') {
+				moveEventHandlers($el, types, isDelegated);
+			}
+
+			return $el;
+		};
+	}
 
 })(jQuery);

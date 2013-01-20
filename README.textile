@@ -1,16 +1,17 @@
 h1. jQuery.bind-first
 
-bind-first is a tiny jQuery plugin which allows you to attach a handler to an event for the elements (like regular @$.bind@, @$.delegate@ and @$.live@ do) and put it on the first place in the event queue. 
+bind-first is a tiny jQuery plugin for moving event handler to the beginning of the event queue so that this handler will be executed first, regardless of how many other handlers you had already attached.
 
 Using jQuery.bind-first you may be sure that your event handler will be executed first, regardless of its actual appearance in the code.
 
 h2. Usage
 
+@$(/* selector */).onFirst(/* arguments  */);@
 @$(/* selector */).bindFirst(/* arguments  */);@
 @$(/* selector */).delegateFirst(/* arguments  */);@
 @$(/* selector */).liveFirst(/* arguments  */);@
 
-The arguments are completely identical to the corresponding jQuery functions: "bind":http://api.jquery.com/bind/, "delegate":http://api.jquery.com/delegate/ and "live":http://api.jquery.com/live/.
+The arguments are completely identical to the corresponding jQuery functions: "bind":http://api.jquery.com/bind/, "delegate":http://api.jquery.com/delegate/, "live":http://api.jquery.com/live/ and "on":http://api.jquery.com/on/.
 
 h2. Example
 
@@ -31,10 +32,10 @@ h2. License
 
 h3. MIT License
 
-Copyright (c) 2012 Vladimir Zhuravlev
+Copyright (c) 2013 Vladimir Zhuravlev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

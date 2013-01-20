@@ -1,10 +1,10 @@
 /*
- * jQuery.bind-first library v0.1
- * Copyright (c) 2012 Vladimir Zhuravlev
- * 
+ * jQuery.bind-first library v0.2.0
+ * Copyright (c) 2013 Vladimir Zhuravlev
+ *
  * Released under MIT License
- * 
- * Date: Sun Jan 15 20:05:49 GST 2012
+ *
+ * Date: Sun Jan 20 16:12:09 ICT 2013
  **/
 
 (function($) {
@@ -17,9 +17,9 @@
 	function moveHandlerToTop($el, eventName, isDelegated) {
 		var data = eventsData($el);
 		var events = data[eventName];
-		
+
 		if (!JQ_LT_17) {
-			var handler = events.pop();
+			var handler = isDelegated ? events.splice(events.delegateCount - 1, 1)[0] : events.pop();
 			events.splice(isDelegated ? 0 : (events.delegateCount || 0), 0, handler);
 
 			return;
@@ -43,41 +43,38 @@
 	}
 	
 	$.fn.bindFirst = function() {
-		var $el = $(this);
 		var args = $.makeArray(arguments);
 		var eventsString = args.shift();
 
 		if (eventsString) {
-			$.fn.bind.apply($el, arguments);
-			moveEventHandlers($el, eventsString);
+			$.fn.bind.apply(this, arguments);
+			moveEventHandlers(this, eventsString);
 		}
 
-		return $el;
+		return this;
 	};
 
 	$.fn.delegateFirst = function() {
-		var $el = $(this);
 		var args = $.makeArray(arguments);
 		var eventsString = args[1];
 		
 		if (eventsString) {
 			args.splice(0, 2);
-			$.fn.delegate.apply($el, arguments);
-			moveEventHandlers($(this), eventsString, true);
+			$.fn.delegate.apply(this, arguments);
+			moveEventHandlers(this, eventsString, true);
 		}
 
-		return $el;
+		return this;
 	};
 
 	$.fn.liveFirst = function() {
-		var $el = $(this);
 		var args = $.makeArray(arguments);
 
 		// live = delegate to document
-		args.unshift($el.selector);
+		args.unshift(this.selector);
 		$.fn.delegateFirst.apply($(document), args);
 
-		return $el;
+		return this;
 	};
 
 })(jQuery);

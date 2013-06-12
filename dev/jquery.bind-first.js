@@ -1,5 +1,9 @@
 (function($) {
-	var JQ_LT_17 = parseFloat($.fn.jquery) < 1.7;
+	var splitVersion = $.fn.jquery.split(".");
+	var major = parseInt(splitVersion[0]);
+	var minor = parseInt(splitVersion[1]);
+
+	var JQ_LT_17 = (major < 1) || (major == 1 && minor < 7);
 	
 	function eventsData($el) {
 		return JQ_LT_17 ? $el.data('events') : $._data($el[0]).events;

@@ -1,14 +1,19 @@
 /*
- * jQuery.bind-first library v0.2.0
+ * jQuery.bind-first library v0.2.1
  * Copyright (c) 2013 Vladimir Zhuravlev
  *
  * Released under MIT License
+ * @license
  *
- * Date: Sun Jan 20 16:12:09 ICT 2013
+ * Date: Thu Jun 13 21:06:55 NOVT 2013
  **/
 
 (function($) {
-	var JQ_LT_17 = parseFloat($.fn.jquery) < 1.7;
+	var splitVersion = $.fn.jquery.split(".");
+	var major = parseInt(splitVersion[0]);
+	var minor = parseInt(splitVersion[1]);
+
+	var JQ_LT_17 = (major < 1) || (major == 1 && minor < 7);
 	
 	function eventsData($el) {
 		return JQ_LT_17 ? $el.data('events') : $._data($el[0]).events;
@@ -76,5 +81,26 @@
 
 		return this;
 	};
+	
+	if (!JQ_LT_17) {
+		$.fn.onFirst = function(types, selector) {
+			var $el = $(this);
+			var isDelegated = typeof selector === 'string';
+
+			$.fn.on.apply($el, arguments);
+
+			// events map
+			if (typeof types === 'object') {
+				for (type in types)
+					if (types.hasOwnProperty(type)) {
+						moveEventHandlers($el, type, isDelegated);
+					}
+			} else if (typeof types === 'string') {
+				moveEventHandlers($el, types, isDelegated);
+			}
+
+			return $el;
+		};
+	}
 
 })(jQuery);

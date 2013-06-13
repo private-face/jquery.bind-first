@@ -4,7 +4,7 @@ RELEASE_DIR = release
 RESOURCES = ${BUILD_DIR}/header.js\
 			dev/jquery.bind-first.js\
 
-LIB_VER = $(shell cat ${BUILD_DIR}/version.txt)
+LIB_VER = $(shell node -e "console.log(JSON.parse(require('fs').readFileSync('bind-first.jquery.json').toString()).version);")
 VER = sed "s/@VERSION/${LIB_VER}/"
 DATE = $(shell date)
 
@@ -19,4 +19,4 @@ combine: $(RESOURCES)
 		${VER} > $(COMBINED)
 
 min: combine
-	uglifyjs $(COMBINED) > $(MINIFIED)
+	uglifyjs2 $(COMBINED) --compress --mangle --comments --output $(MINIFIED)

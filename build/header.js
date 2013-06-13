@@ -3,6 +3,7 @@
  * Copyright (c) 2013 Vladimir Zhuravlev
  *
  * Released under MIT License
+ * @license
  *
  * Date: @DATE
  **/

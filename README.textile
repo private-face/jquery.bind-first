@@ -6,10 +6,11 @@ Using jQuery.bind-first you may be sure that your event handler will be executed
 
 h2. Usage
 
-@$(/* selector */).onFirst(/* arguments  */);@
-@$(/* selector */).bindFirst(/* arguments  */);@
-@$(/* selector */).delegateFirst(/* arguments  */);@
-@$(/* selector */).liveFirst(/* arguments  */);@
+<pre><code>$(/* selector */).bindFirst(/* arguments  */);
+$(/* selector */).delegateFirst(/* arguments  */);
+$(/* selector */).onFirst(/* arguments  */);	// (only jQuery >= 1.7)
+$(/* selector */).liveFirst(/* arguments  */); 	// (only jQuery <= 1.8)
+</code></pre>
 
 The arguments are completely identical to the corresponding jQuery functions: "bind":http://api.jquery.com/bind/, "delegate":http://api.jquery.com/delegate/, "live":http://api.jquery.com/live/ and "on":http://api.jquery.com/on/.
 

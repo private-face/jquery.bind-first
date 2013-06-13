@@ -2,12 +2,60 @@
 <html>
 <head>
 	<title>jquery.bind-first tests</title>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script src="../dev/jquery.bind-first.js"></script>
 	<link rel="stylesheet" href="qunit/qunit/qunit.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="qunit/qunit/qunit.js"></script>
 </head>
 <body>
+	<!-- 1.4.2 -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script>
+		var jQueries = {};
+		jQueries[$.fn.jquery] = $;
+	</script>
+	<script src="../dev/jquery.bind-first.js"></script>
+	<!-- 1.5 -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+	<script>
+		jQueries[$.fn.jquery] = $;
+	</script>
+	<script src="../dev/jquery.bind-first.js"></script>
+	<!-- 1.6 -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+	<script>
+		jQueries[$.fn.jquery] = $;
+	</script>
+	<script src="../dev/jquery.bind-first.js"></script>
+	<!-- 1.7 -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script>
+		jQueries[$.fn.jquery] = $;
+	</script>
+	<script src="../dev/jquery.bind-first.js"></script>
+	<!-- 1.8 -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script>
+		jQueries[$.fn.jquery] = $;
+	</script>
+	<script src="../dev/jquery.bind-first.js"></script>
+	<!-- 1.9 -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script>
+		jQueries[$.fn.jquery] = $;
+	</script>
+	<script src="../dev/jquery.bind-first.js"></script>
+	<!-- 1.10 -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+	<script>
+		jQueries[$.fn.jquery] = $;
+	</script>
+	<script src="../dev/jquery.bind-first.js"></script>
+	<!-- 2.0 -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script>
+		jQueries[$.fn.jquery] = $;
+	</script>
+	<script src="../dev/jquery.bind-first.js"></script>
+
+	<script type="text/javascript" src="qunit/qunit/qunit.js"></script>
 	<h1 id="qunit-header">jquery.bind-first tests</h1>
 	<h2 id="qunit-banner"></h2>
 	<div id="qunit-testrunner-toolbar"></div>
@@ -20,64 +68,71 @@
 
 	</div>
 	<script type="text/javascript">
-		module('bindFirst');
+		function runTestForJQueryVersion($) {
+			module('bindFirst @ ' + $.fn.jquery);
 
-		test('bind first', function() {
-			var result = 0;
-			var stack = [];
+			test('bind first', function() {
+				var result = 0;
+				var stack = [];
 
-			function inc() {
-				result++;
-			}
+				function inc(e) {
+					console.warn(e.type)
+					result++;
+				}
 
-			// bind multiple events
-			result = 0;
-			$('#bind')
-				.bindFirst('click focus.ns1 blur.ns2', inc)
-				.trigger('click')
-				.trigger('focus')
-				.trigger('blur');
+				// bind multiple events
+				result = 0;
+				$('#bind')
+					.bindFirst('event1 event2.ns1 event3.ns2', inc)
+					.trigger('event1')
+					.trigger('event2')
+					.trigger('event3');
 
-			equal(result, 3);
+				equal(result, 3);
 
-			// preserve namespaces
-			result = 0;
-			$('#bind').trigger('focus.ns1');
-			equal(result, 1);
+				// preserve namespaces
+				result = 0;
+				$('#bind').trigger('event2.ns1');
+				equal(result, 1);
 
-			$('#bind').unbind('click focus blur');
+				$('#bind').unbind('event1 event2 event3');
 
-			// bindFirst
-			stack = [];
-			$('#bind')
-				// attach event via regular bind
-				.bind('click', function() { stack.push('bind')})
-				// attach event via bindFirst
-				.bindFirst('click', function() { stack.push('bindFirst') })
-				// trigger event
-				.trigger('click');
-
-			deepEqual(stack, ['bindFirst', 'bind']);
-
-			$('#bind').unbind('click');
-
-
-			// bindFirst/delegate mixed (1.7)
-			if (parseFloat($.fn.jquery) >= 1.7) {
+				// bindFirst
 				stack = [];
 				$('#bind')
-					.live('click', function() {
-						stack.push('delegate');
-					})
-					.bindFirst('click', function() {
-						stack.push('bindFirst');
-					})
+					// attach event via regular bind
+					.bind('click', function() { stack.push('bind')})
+					// attach event via bindFirst
+					.bindFirst('click', function() { stack.push('bindFirst') })
+					// trigger event
 					.trigger('click');
 
-				deepEqual(stack, ['bindFirst', 'delegate'])
-			}
-		});
+				deepEqual(stack, ['bindFirst', 'bind']);
 
+				$('#bind').unbind('click');
+
+				// bindFirst/delegate mixed (1.7)
+				var version = $.fn.jquery.split(".");
+				version = version[0] * 1e3 + version[1] * 10;
+				if (version > 1070) {
+					stack = [];
+					$('#bind')
+						.delegate(document, 'click', function() {
+							stack.push('delegate');
+						})
+						.bindFirst('click', function() {
+							stack.push('bindFirst');
+						})
+						.trigger('click');
+
+					deepEqual(stack, ['bindFirst', 'delegate'])
+				}
+			});
+		};
+
+		for (jquery in jQueries) {
+			runTestForJQueryVersion(jQueries[jquery]);
+		}
 	</script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 /*
- * jQuery.bind-first library v0.2.1
+ * jQuery.bind-first library v0.2.2
  * Copyright (c) 2013 Vladimir Zhuravlev
  *
  * Released under MIT License
  * @license
  *
- * Date: Thu Jun 13 21:06:55 NOVT 2013
+ * Date: Tue Jan  7 20:59:23 ICT 2014
  **/
 
 (function($) {

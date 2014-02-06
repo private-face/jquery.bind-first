@@ -37,18 +37,27 @@
 		});
 	}
 	
-	$.fn.bindFirst = function() {
-		var args = $.makeArray(arguments);
-		var eventsString = args.shift();
+	function makeMethod(methodName) {
+		$.fn[methodName + 'First'] = function() {
+			var args = $.makeArray(arguments);
+			var eventsString = args.shift();
 
-		if (eventsString) {
-			$.fn.bind.apply(this, arguments);
-			moveEventHandlers(this, eventsString);
+			if (eventsString) {
+				$.fn[methodName].apply(this, arguments);
+				moveEventHandlers(this, eventsString);
+			}
+
+			return this;
 		}
+	}
 
-		return this;
-	};
+	// bind
+	makeMethod('bind');
 
+	// one
+	makeMethod('one');
+
+	// delegate
 	$.fn.delegateFirst = function() {
 		var args = $.makeArray(arguments);
 		var eventsString = args[1];
@@ -62,16 +71,18 @@
 		return this;
 	};
 
+	// live
 	$.fn.liveFirst = function() {
 		var args = $.makeArray(arguments);
 
-		// live = delegate to document
+		// live = delegate to the document
 		args.unshift(this.selector);
 		$.fn.delegateFirst.apply($(document), args);
 
 		return this;
 	};
 	
+	// on (jquery >= 1.7)
 	if (!JQ_LT_17) {
 		$.fn.onFirst = function(types, selector) {
 			var $el = $(this);

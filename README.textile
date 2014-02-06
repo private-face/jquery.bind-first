@@ -10,9 +10,10 @@ h2. Usage
 $(/* selector */).bindFirst(/* arguments  */);
 $(/* selector */).delegateFirst(/* arguments  */);
 $(/* selector */).liveFirst(/* arguments  */);
+$(/* selector */).oneFirst(/* arguments  */);
 </code></pre>
 
-The arguments are completely identical to the corresponding jQuery functions: "bind":http://api.jquery.com/bind/, "delegate":http://api.jquery.com/delegate/, "live":http://api.jquery.com/live/ and "on":http://api.jquery.com/on/.
+The arguments are completely identical to the corresponding jQuery functions: "bind":http://api.jquery.com/bind/, "delegate":http://api.jquery.com/delegate/, "live":http://api.jquery.com/live/, "one":http://api.jquery.com/one/ and "on":http://api.jquery.com/on/.
 
 h2. Example
 

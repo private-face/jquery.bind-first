@@ -1,23 +1,25 @@
-h1. jQuery.bind-first
+# jQuery.bind-first
 
 bind-first is a tiny jQuery plugin for moving event handler to the beginning of the event queue so that this handler will be executed first, regardless of how many other handlers you had already attached.
 
 Using jQuery.bind-first you may be sure that your event handler will be executed first, regardless of its actual appearance in the code.
 
-h2. Usage
+## Usage
 
-<pre><code>$(/* selector */).onFirst(/* arguments  */);	// (only jQuery >= 1.7)
+```js
+$(/* selector */).onFirst(/* arguments  */);	// (only jQuery >= 1.7)
 $(/* selector */).bindFirst(/* arguments  */);
 $(/* selector */).delegateFirst(/* arguments  */);
 $(/* selector */).liveFirst(/* arguments  */);
 $(/* selector */).oneFirst(/* arguments  */);
-</code></pre>
+```
 
-The arguments are completely identical to the corresponding jQuery functions: "bind":http://api.jquery.com/bind/, "delegate":http://api.jquery.com/delegate/, "live":http://api.jquery.com/live/, "one":http://api.jquery.com/one/ and "on":http://api.jquery.com/on/.
+The arguments are completely identical to the corresponding jQuery functions: [bind](http://api.jquery.com/bind/), [delegate](http://api.jquery.com/delegate/), [live](http://api.jquery.com/live/), [one](http://api.jquery.com/one/) and [on](http://api.jquery.com/on/).
 
-h2. Example
+## Example
 
-<pre><code>$('#bind a')
+```js
+$('#bind a')
 	// regular bind: binded first, will be runned second
 	.bind('click', function() {
 		alert('regular bind');
@@ -28,13 +30,13 @@ h2. Example
 		alert('bindFirst');
 		return false;
 	});
-</code></pre>
+```
 
-h2. License
+## License
 
-h3. MIT License
+### MIT License
 
-Copyright (c) 2013 Vladimir Zhuravlev
+Copyright (c) 2014 Vladimir Zhuravlev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

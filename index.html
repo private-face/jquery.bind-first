@@ -1,95 +1,96 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <title>Jquery.bind-first by private-face</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>Jquery.bind-first</h1>
-        <h2>Attach handler to an event and it will be executed first, regardless of how many ones you had already attached.</h2>
-        <a href="https://github.com/private-face/jquery.bind-first" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/private-face/jquery.bind-first">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/private-face/jquery.bind-first/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/private-face/jquery.bind-first/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>jQuery.bind-first</h1>
+    <div class="wrapper">
 
-<p>bind-first is a tiny jQuery plugin which allows you to attach a handler to an event for the elements (like regular <code>$.fn.on</code>, <code>$.fn.bind</code>, <code>$.fn.delegate</code> and <code>$.fn.live</code> do) and put it on the first place in the event queue. </p>
+      <section>
+        <div id="title">
+          <h1>Jquery.bind-first</h1>
+          <p>Attach handler to an event and it will be executed first, regardless of how many ones you had already attached.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/private-face">private-face</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
 
-<p>By using jQuery.bind-first you may be sure that your event handler will be executed first, regardless of its actual appearance in the code.</p>
+        <h1>
+<a name="jquerybind-first" class="anchor" href="#jquerybind-first"><span class="octicon octicon-link"></span></a>jQuery.bind-first</h1>
 
-<h2>Usage</h2>
+<p>bind-first is a tiny jQuery plugin for moving event handler to the beginning of the event queue so that this handler will be executed first, regardless of how many other handlers you had already attached.</p>
 
-<pre><code>$(/* selector */).onFirst(/* arguments  */);
-$(/* selector */).bindFirst(/* arguments  */);
-$(/* selector */).delegateFirst(/* arguments  */);
-$(/* selector */).liveFirst(/* arguments  */);
-</code></pre>
+<p>Using jQuery.bind-first you may be sure that your event handler will be executed first, regardless of its actual appearance in the code.</p>
 
-<p>The arguments are completely identical to the corresponding jQuery functions: <a href="http://api.jquery.com/on/">on</a>, <a href="http://api.jquery.com/bind/">bind</a>, <a href="http://api.jquery.com/delegate/">delegate</a> and <a href="http://api.jquery.com/live/">live</a>.</p>
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<h2>Example</h2>
+<div class="highlight highlight-js"><pre><span class="nx">$</span><span class="p">(</span><span class="cm">/* selector */</span><span class="p">).</span><span class="nx">onFirst</span><span class="p">(</span><span class="cm">/* arguments  */</span><span class="p">);</span>    <span class="c1">// (only jQuery &gt;= 1.7)</span>
+<span class="nx">$</span><span class="p">(</span><span class="cm">/* selector */</span><span class="p">).</span><span class="nx">bindFirst</span><span class="p">(</span><span class="cm">/* arguments  */</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="cm">/* selector */</span><span class="p">).</span><span class="nx">delegateFirst</span><span class="p">(</span><span class="cm">/* arguments  */</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="cm">/* selector */</span><span class="p">).</span><span class="nx">liveFirst</span><span class="p">(</span><span class="cm">/* arguments  */</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="cm">/* selector */</span><span class="p">).</span><span class="nx">oneFirst</span><span class="p">(</span><span class="cm">/* arguments  */</span><span class="p">);</span>
+</pre></div>
 
-<pre><code>$('#bind a')
-    // regular bind: binded first, will be runned second
-    .bind('click', function() {
-        alert('regular bind');
-        return false;
-    })
-    // bindFirst: binded second, will be runned first
-    .bindFirst('click', function() {
-        alert('bindFirst');
-        return false;
-    });
-</code></pre>
+<p>The arguments are completely identical to the corresponding jQuery functions: <a href="http://api.jquery.com/bind/">bind</a>, <a href="http://api.jquery.com/delegate/">delegate</a>, <a href="http://api.jquery.com/live/">live</a>, <a href="http://api.jquery.com/one/">one</a> and <a href="http://api.jquery.com/on/">on</a>.</p>
 
-<h2>License</h2>
+<h2>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
 
-<h3>MIT License</h3>
+<div class="highlight highlight-js"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'#bind a'</span><span class="p">)</span>
+    <span class="c1">// regular bind: binded first, will be runned second</span>
+    <span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s1">'regular bind'</span><span class="p">);</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">})</span>
+    <span class="c1">// bindFirst: binded second, will be runned first</span>
+    <span class="p">.</span><span class="nx">bindFirst</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s1">'bindFirst'</span><span class="p">);</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">});</span>
+</pre></div>
 
-<p>Copyright (c) 2012 Vladimir Zhuravlev</p>
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<h3>
+<a name="mit-license" class="anchor" href="#mit-license"><span class="octicon octicon-link"></span></a>MIT License</h3>
+
+<p>Copyright (c) 2014 Vladimir Zhuravlev</p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. </p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-        </section>
+      </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/private-face/jquery.bind-first/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/private-face/jquery.bind-first/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/private-face/jquery.bind-first"></a> is maintained by <a href="https://github.com/private-face">private-face</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
     </div>
-
-            <script type="text/javascript">
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>

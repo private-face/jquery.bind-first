@@ -16,7 +16,7 @@
 			"url": "https://github.com/private-face/jquery.bind-first/blob/master/LICENSE"
 		}
 	],
-	"homepage": "http://private-face.github.com/jquery.bind-first",
+	"homepage": "http://private-face.github.io/jquery.bind-first/",
 	"dependencies": {
 		"jquery": ">=1.4.2"
 	}
